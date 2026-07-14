@@ -1,0 +1,27 @@
+services:
+  backend:
+    image: arshadkhan007/devstackhub-backend:latest
+    container_name: backend
+
+    ports:
+      - "5000:5000"
+
+    env_file:
+      - .env
+
+    volumes:
+      - /mnt/efs/images:/app/local_storage
+
+    restart: unless-stopped
+
+  frontend:
+    image: arshadkhan007/devstackhub-frontend:latest
+    container_name: frontend
+
+    ports:
+      - "80:80"
+
+    depends_on:
+      - backend
+
+    restart: unless-stopped
